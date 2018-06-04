@@ -11,7 +11,7 @@ fans_url="https://m.weibo.cn/api/container/getIndex?containerid=231051_-_fans_-_
 s=aiohttp.ClientSession()
 client=pymongo.MongoClient()
 db=client.find
-tb=db.pmmxiaohao
+tb=db.wyj
 client.close()
 def find_followers(url,uid):
     users=[]
@@ -42,36 +42,36 @@ async def find_fans(url,uid):
                 # print(item['user']['id'])
                 tb.insert({'name':item['user']['screen_name'],'uid':item['user']['id']})
 if __name__=='__main__':
-    client=pymongo.MongoClient()
-    db=client.find
-    tb=db.pmmxiaohao
-    all={}
-    for cur in tb.find():
-        if cur['uid'] in all:
-            all[cur['uid']]=all[cur['uid']]+1
-        else:
-            all[cur['uid']]=1
-    max=0
-    test=[]
-    for i in all.keys():
-        if all[i]>max:
-            print(i,all[i])
-            max=all[i]
-        if all[i]>30:
-            print(i,all[i])
-    print(test)
-
-    # users=find_followers(followers_url,'6138708048')
-    # for i in range(math.ceil(len(users)/3)):
-    #     print(i*3/len(users))
-    #     if i==math.ceil(len(users)/3)-1 and len(users)%3:
-    #         task=[find_fans(fans_url,uid) for uid in users[i*3:i*3+len(users)%3]]
-    #         loop=asyncio.get_event_loop()
-    #         loop.run_until_complete(asyncio.wait(task))
+    # client=pymongo.MongoClient()
+    # db=client.find
+    # tb=db.pmmxiaohao
+    # all={}
+    # for cur in tb.find():
+    #     if cur['uid'] in all:
+    #         all[cur['uid']]=all[cur['uid']]+1
     #     else:
-    #         task=[find_fans(fans_url,uid) for uid in users[i*3:i*3+3]]
-    #         loop=asyncio.get_event_loop()
-    #         loop.run_until_complete(asyncio.wait(task))
+    #         all[cur['uid']]=1
+    # max=0
+    # test=[]
+    # for i in all.keys():
+    #     if all[i]>max:
+    #         print(i,all[i])
+    #         max=all[i]
+    #     if all[i]>30:
+    #         print(i,all[i])
+    # print(test)
+
+    users=find_followers(followers_url,'3212105147')
+    for i in range(math.ceil(len(users)/3)):
+        print(i*3/len(users))
+        if i==math.ceil(len(users)/3)-1 and len(users)%3:
+            task=[find_fans(fans_url,uid) for uid in users[i*3:i*3+len(users)%3]]
+            loop=asyncio.get_event_loop()
+            loop.run_until_complete(asyncio.wait(task))
+        else:
+            task=[find_fans(fans_url,uid) for uid in users[i*3:i*3+3]]
+            loop=asyncio.get_event_loop()
+            loop.run_until_complete(asyncio.wait(task))
     
 
     # users=find_followers(followers_url,'6138708048')
