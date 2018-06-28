@@ -1,0 +1,12 @@
+  File "save_weibo.py", line 15
+    client=pymongo.MongoClient()
+                               ^
+TabError: inconsistent use of tabs and spaces in indentation
+  File "save_weibo.py", line 15
+    client=pymongo.MongoClient()
+                               ^
+TabError: inconsistent use of tabs and spaces in indentation
+  File "save_weibo.py", line 15
+    client=pymongo.MongoClient()
+                               ^
+TabError: inconsistent use of tabs and spaces in indentation
